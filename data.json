@@ -1,26 +1,68 @@
 [
   {
     "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Смартфон",
+      "description": "В данной категории хранится информация о смартфонах"
+    }
+  },
+  {
+    "model": "catalog.category",
     "pk": 3,
     "fields": {
-      "name": "Часы",
-      "description": "Все смарт часы"
+      "name": "Компьютер",
+      "description": "В данной категории хранится информация о настольных компьютерах и планшетах"
     }
   },
   {
     "model": "catalog.category",
     "pk": 4,
     "fields": {
-      "name": "Мониторы",
-      "description": "Все мониторы"
+      "name": "Умные часы",
+      "description": "В данной категории хранится информация об умных часах и браслетах"
     }
   },
   {
     "model": "catalog.category",
     "pk": 5,
     "fields": {
-      "name": "Чайники",
-      "description": "Все чайники"
+      "name": "Ноутбук",
+      "description": "В данной категории хранится информация о ноутбуках"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Часы",
+      "description": "В данной категории хранится информация о часах"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Nokia",
+      "description": "Nokia 3310 Blue",
+      "image": "",
+      "category": 2,
+      "price": 3000,
+      "create_date": "2023-04-04",
+      "change_date": "2023-05-05"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "LG",
+      "description": "LG Super Black",
+      "image": "",
+      "category": 2,
+      "price": 40000,
+      "create_date": "2023-04-04",
+      "change_date": "2023-05-05"
     }
   }
-    ]
+]
