@@ -1,0 +1,7 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    {% for object in object_list %}
+        {% include 'main/includes/inc_product_card.html' %}
+    {% endfor %}
+{% endblock %}
