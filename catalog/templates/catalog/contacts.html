@@ -1,17 +1,29 @@
-{% extends 'catalog/base.html' %}
-<body>
-    {% block content %}
-    <h1>Обратная связь</h1>
-    <p>Заполните эту форму, чтобы связаться с нами.</p>
-    <form>
-        <label for="name">Имя:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        <label for="message">Сообщение:</label>
-        <textarea id="message" name="message"></textarea><br><br>
-        <input type="submit" value="Send">
-    </form>
-    {% endblock %}
-</body>
-</html>
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="col-1"></div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Контакты</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <input class="form-control" placeholder="name" name="name"/><br><br>
+                    <input class="form-control" placeholder="email" name="email" type="email"/><br><br>
+                    <textarea class="form-control" placeholder="you message" name="message"></textarea><br><br>
+                    <input class="btn btn-primary" type="submit" value="Отправить"/>
+                </form>
+            </div>
+            {% if success %}
+                <p>{{ success }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-5">
+        <p>Moscow</p>
+        <p>Москва</p>
+        <p>Russian</p>
+        <p>Россия</p>
+    </div>
+{% endblock %}
