@@ -6,7 +6,7 @@ from catalog.models import Product, Record
 
 # Create your views here.
 class IndexView(TemplateView):
-    template_name = 'main/index.html'
+    template_name = 'catalog/index.html'
     extra_context = {
         'title': 'Главная страница',
         'object_list': Product.objects.all()
@@ -48,7 +48,7 @@ class RecordDetailView(DetailView):
 class RecordCreateView(CreateView):
     model = Record
     fields = ('record_title', 'slug', 'content', 'preview')
-    success_url = reverse_lazy('main:records_list')
+    success_url = reverse_lazy('catalog:records_list')
 
 
 class RecordUpdateView(UpdateView):
@@ -56,12 +56,12 @@ class RecordUpdateView(UpdateView):
     fields = ('record_title', 'slug', 'content', 'preview')
 
     def get_success_url(self):
-        return reverse('main:record_detail', args=[str(self.object.slug)])
+        return reverse('catalog:record_detail', args=[str(self.object.slug)])
 
 
 class RecordDeleteView(DeleteView):
     model = Record
-    success_url = reverse_lazy('main:records_list')
+    success_url = reverse_lazy('catalog:records_list')
 
 
 class ProductDetailView(DetailView):
@@ -74,7 +74,7 @@ class ProductDetailView(DetailView):
 
 
 class ContactView(TemplateView):
-    template_name = 'main/contact.html'
+    template_name = 'catalog/contact.html'
     extra_context = {
         'title': 'Контакты'
     }
