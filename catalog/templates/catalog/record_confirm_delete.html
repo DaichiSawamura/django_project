@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %}
+{% extends 'catalog/base.html' %}
 {% load mediapath %}
 {% block content %}
     <div class="col">
@@ -11,7 +11,7 @@
                 </form>
             </div>
             <div class="card-footer">
-                <a href="{% url 'main:records_list' %}" class="btn btn-primary"><< Назад</a>
+                <a href="{% url 'catalog:records_list' %}" class="btn btn-primary"><< Назад</a>
             </div>
         </div>
     </div>
