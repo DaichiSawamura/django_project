@@ -24,7 +24,6 @@ class ProductForm(FormStyleMixin, forms.ModelForm):
 
         return cleaned_data
 
-
     def clean_description(self):
         cleaned_data = self.cleaned_data['description']
         if cleaned_data in words:
