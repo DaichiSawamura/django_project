@@ -54,3 +54,19 @@ class Record(models.Model):
     def increase_views(self):
         self.views += 1
         self.save()
+
+
+class Version(models.Model):
+    product_name = models.CharField(max_length=150, verbose_name='Наименование')
+    number_ver = models.IntegerField(default=0.0, verbose_name='Номер версии')
+    name_ver = models.CharField(max_length=150, verbose_name='Наименование версии')
+    flag_ver = models.CharField(max_length=150, verbose_name='Признак текущей версии')
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+
+    def __str__(self):
+        return f'{self.product} {self.number_ver}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
