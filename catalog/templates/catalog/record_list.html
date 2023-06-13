@@ -5,6 +5,6 @@
         <a href="{% url 'catalog:record_create' %}" class="btn btn-primary m-2">Создать запись</a>
     </div>
     {% for object in object_list %}
-        {% include 'main/includes/inc_record_card.html' %}
+        {% include 'catalog/includes/inc_record_card.html' %}
     {% endfor %}
 {% endblock %}

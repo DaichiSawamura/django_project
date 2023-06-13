@@ -7,9 +7,9 @@
             <h6> {{ object.content|slice:":100" }}</h6>
 
 
-            <p><a class="btn btn-secondary" href="{% url 'main:record_detail' object.slug %}">Посмотреть &raquo;</a></p>
-            <p><a class="btn btn-warning" href="{% url 'main:record_update' object.pk %}">Изменить &raquo;</a></p>
-            <p><a class="btn btn-danger" href="{% url 'main:record_delete' object.pk %}">Удалить &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'catalog:record_detail' object.slug %}">Посмотреть &raquo;</a></p>
+            <p><a class="btn btn-warning" href="{% url 'catalog:record_update' object.pk %}">Изменить &raquo;</a></p>
+            <p><a class="btn btn-danger" href="{% url 'catalog:record_delete' object.pk %}">Удалить &raquo;</a></p>
         </div>
     </div>
 </div>
