@@ -1,7 +1,18 @@
-{% load tags %}
-
+{% load mediapath %}
 <div class="col-lg-4">
-    <img class="rounded-circle" src="{% mediapath object.image %}" alt="Generic placeholder image" width="140" height="140">
-    <h2>{{ object.name }}</h2>
-    <p><a class="btn btn-secondary" href="{% url 'catalog:product' object.pk %}" role="button">Подробнее &raquo;</a></p>
-</div><!-- /.col-lg-4 -->
+    <div class="card m-2 text-center">
+        <div class="card-body">
+            <img src="{% mediapath object.image %}" alt="Картинка" width="200" height="200"/>
+            <h2>{{ object.name|title }} </h2>
+            <h6> {{ object.description|slice:":100" }}</h6>
+            <h4> {{ object.price_for_pickup|title }}</h4>
+            <p><a class="btn btn-secondary" href="{% url 'catalog:product_item' object.pk %}">Посмотреть &raquo;</a></p>
+            {% if user.is_authenticated and object.user == user.email %}
+                <p><a class="btn btn-warning" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a></p>
+                {% if user.is_superuser %}
+                <p><a class="btn btn-danger" href="{% url 'catalog:product_delete' object.pk %}">Удалить &raquo;</a></p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
