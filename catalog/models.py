@@ -33,7 +33,7 @@ class Product(models.Model):
 
 class Record(models.Model):
     record_title = models.CharField(max_length=150, verbose_name='Заголовок')
-    slug = models.CharField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     content = models.TextField(max_length=15000, verbose_name='Содержимое')
     preview = models.ImageField(upload_to='image/', verbose_name='Изображение', null=True, blank=True)
     date_of_creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
