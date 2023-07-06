@@ -1,7 +1,16 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
+    <div class="col-12">
+        <a href="{% url 'catalog:product_create' %}" class="btn btn-primary m-2">Создать продукт</a>
+    </div>
+    {% for version in version_list %}
+        <h6> Активная версия: {{ version.name }}</h6>
+        <h6> Номер версии: {{ version.number }}</h6>
+        <h6> Продукт версии: {{ version.product }}</h6>
+    {% endfor %}
     {% for object in object_list %}
+
         {% include 'catalog/includes/inc_product_card.html' %}
     {% endfor %}
 {% endblock %}

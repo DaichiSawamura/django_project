@@ -2,14 +2,15 @@
 <div class="col-lg-4">
     <div class="card m-2 text-center">
         <div class="card-body">
-            <img src="{% mediapath object.preview %}" alt="Картинка"  width="200" height="200"/>
+            <img src="{% mediapath object.preview %}" alt="Картинка" width="200" height="200"/>
             <h2>{{ object.record_title|title }} </h2>
             <h6> {{ object.content|slice:":100" }}</h6>
 
-
             <p><a class="btn btn-secondary" href="{% url 'catalog:record_detail' object.slug %}">Посмотреть &raquo;</a></p>
             <p><a class="btn btn-warning" href="{% url 'catalog:record_update' object.pk %}">Изменить &raquo;</a></p>
-            <p><a class="btn btn-danger" href="{% url 'catalog:record_delete' object.pk %}">Удалить &raquo;</a></p>
+            {% if user.is_superuser %}
+                <p><a class="btn btn-danger" href="{% url 'catalog:record_delete' object.pk %}">Удалить &raquo;</a></p>
+            {% endif %}
         </div>
     </div>
 </div>

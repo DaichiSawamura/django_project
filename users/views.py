@@ -2,7 +2,7 @@ import secrets
 
 from django.conf import settings
 from django.core.mail import send_mail
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import UpdateView, CreateView
 from users.models import User
 from django.urls import reverse_lazy, reverse
@@ -39,6 +39,22 @@ class RegisterView(CreateView):
         new_url = super().get_success_url()
         token = self.object.token
         return str(new_url) + str(token)
+
+
+def after_registration(request, token):
+    if request.method == 'POST':
+        obj = get_object_or_404(User, token=token)
+        confirm_account(obj)
+    return render(request, 'users/after_registration.html')
+
+
+def activate_user(request, token):
+    user = User.objects.filter(token=token).first()
+    if user:
+        user.is_active = True
+        user.save()
+        return redirect('users:login')
+    return render(request, 'users/user_not_found.html')
 
 
 def generate_new_password(request):

@@ -1,10 +1,11 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование')
-    description = models.CharField(max_length=150, verbose_name='Описание')
+    description = models.CharField(max_length=150, verbose_name='Описание', null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}, {self.description}'
@@ -15,13 +16,23 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    ACTIV = 'Активна'
+    NO_ACTIV = 'Не активна'
+
+    SELECT_STATUS = [
+        (ACTIV, 'Активна'),
+        (NO_ACTIV, 'Не активна'),
+    ]
+
     name = models.CharField(max_length=150, verbose_name='Наименование')
-    description = models.CharField(max_length=150, verbose_name='Описание')
+    description = models.CharField(max_length=150, verbose_name='Описание', null=True, blank=True)
     image = models.ImageField(upload_to='images/', verbose_name='Изображение', null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    category = models.ForeignKey(verbose_name='Категория', to='Category', on_delete=models.CASCADE)
     price = models.IntegerField(verbose_name='Цена за покупку')
-    create_date = models.DateField(verbose_name='Дата создания', null=True, blank=True)
-    change_date = models.DateField(verbose_name='Дата последнего изменения', null=True, blank=True)
+    create_date = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    change_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
+    user = models.CharField(max_length=50, verbose_name='Создатель', null=True, blank=True)
+    status = models.CharField(max_length=50, default=NO_ACTIV, choices=SELECT_STATUS, verbose_name='Статус')
 
     def __str__(self):
         return f'{self.name}, {self.description}'
@@ -46,6 +57,11 @@ class Record(models.Model):
     def get_absolute_url(self):
         return reverse('record_detail', kwargs={'slug': self.slug})
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.record_title)
+        return super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'запись'
         verbose_name_plural = 'записи'
@@ -57,15 +73,13 @@ class Record(models.Model):
 
 
 class Version(models.Model):
-    product_name = models.CharField(max_length=150, verbose_name='Наименование')
-    number_ver = models.IntegerField(default=0.0, verbose_name='Номер версии')
-    name_ver = models.CharField(max_length=150, verbose_name='Наименование версии')
-    flag_ver = models.CharField(max_length=150, verbose_name='Признак текущей версии')
-
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    number = models.IntegerField(unique=True, verbose_name='номер версии')
+    name = models.CharField(max_length=150, verbose_name='Название версии')
+    sign_of_publication = models.BooleanField(default=True, verbose_name='активный')
 
     def __str__(self):
-        return f'{self.product} {self.number_ver}'
+        return f'{self.product}'
 
     class Meta:
         verbose_name = 'версия'
