@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -55,6 +56,11 @@ class Record(models.Model):
 
     def get_absolute_url(self):
         return reverse('record_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.record_title)
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'запись'
