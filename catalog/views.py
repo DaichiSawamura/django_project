@@ -67,13 +67,13 @@ class RecordDetailView(DetailView):
 
 class RecordCreateView(CreateView):
     model = Record
-    fields = ('record_title', 'slug', 'content', 'preview')
+    fields = ('record_title', 'content', 'preview')
     success_url = reverse_lazy('catalog:records_list')
 
 
 class RecordUpdateView(UpdateView):
     model = Record
-    fields = ('record_title', 'slug', 'content', 'preview')
+    fields = ('record_title', 'content', 'preview')
 
     def get_success_url(self):
         return reverse('catalog:record_detail', args=[str(self.object.slug)])
